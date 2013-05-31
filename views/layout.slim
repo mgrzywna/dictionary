@@ -3,5 +3,11 @@ html
   head
     title Awesome Dictionary
     meta charset="utf-8"
+    link rel="stylesheet" type="text/css" href="/css/bootstrap.css"
+    link rel="stylesheet" type="text/css" href="/css/style.css"
+    script type="text/javascript" src="/js/jquery.js"
+    script type="text/javascript" src="/js/bootstrap.js"
   body
-    == yield
+    == slim :nav
+    .container
+      == yield

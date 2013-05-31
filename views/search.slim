@@ -7,7 +7,9 @@
     span.lang = word.language.name.upcase
   ol.translation
     - for translation in word.translations do
-      li = translation.name
+      li
+        = translation.name
+        span.lang = translation.language.name.upcase
 
 - if @words.empty?
   | not found

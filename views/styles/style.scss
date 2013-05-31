@@ -40,10 +40,16 @@ body {
 
 .translation {
     margin-top: 20px;
-    font-size: 1.2em;
+    font-size: 1.3em;
     padding-left: 30px;
 }
 
 .translation > li {
     padding: 3px;
+}
+
+.translation .lang {
+    margin-left: 20px;
+    font-size: 0.5em;
+    font-style: italic;
 }

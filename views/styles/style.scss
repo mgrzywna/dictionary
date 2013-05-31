@@ -1,0 +1,12 @@
+
+$logo-height: 48px;
+
+body {
+    padding-top: 120px;
+    padding-bottom: 80px;
+    background-color: #ecf0f1;
+}
+
+.navbar .nav > li > a {
+    line-height: $logo-height;
+}

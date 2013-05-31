@@ -20,3 +20,6 @@ doc/
 # Sublime Text
 *.sublime-project
 *.sublime-workspace
+
+# sqlite3 database
+*.db

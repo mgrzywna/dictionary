@@ -1,5 +1,7 @@
 
+$radius: 4px;
 $logo-height: 48px;
+$font-color: #2c3e50;
 
 body {
     padding-top: 120px;
@@ -9,4 +11,39 @@ body {
 
 .navbar .nav > li > a {
     line-height: $logo-height;
+}
+
+#search-box input[type=text] {
+    border-radius: $radius;
+    color: $font-color;
+    font-size: 1.1em;
+    width: 600px;
+    margin: 0 4px 0 0;
+}
+
+#search-box button {
+    border-radius: $radius;
+    width: 150px;
+}
+
+.word {
+    margin-top: 40px;
+    font-size: 2.2em;
+}
+
+.word .lang {
+    margin-left: 20px;
+    margin-right: 60px;
+    font-size: 0.4em;
+    font-style: italic;
+}
+
+.translation {
+    margin-top: 20px;
+    font-size: 1.2em;
+    padding-left: 30px;
+}
+
+.translation > li {
+    padding: 3px;
 }

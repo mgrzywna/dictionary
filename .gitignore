@@ -23,3 +23,6 @@ doc/
 
 # sqlite3 database
 *.db
+
+# sass
+.sass-cache

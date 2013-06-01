@@ -27,7 +27,7 @@ get '/search' do
 end
 
 get '/word/:word_id' do
-  @word = Word.get(params[:word_id])
+  @word = Word.get(params[:word_id]) or halt(404)
   slim :word
 end
 

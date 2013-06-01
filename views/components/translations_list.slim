@@ -1,5 +1,5 @@
 .main-word
-  a.word href="/word/#{word.id}" = word.name
+  = word.name
   span.lang-lbl = word.language.name.upcase
 ol.translation
   - for translation in word.translations do

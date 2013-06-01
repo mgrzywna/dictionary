@@ -5,11 +5,16 @@ require 'data_mapper'
 DataMapper.setup(:default, "sqlite3://#{Dir.pwd}/development.db")
 DataMapper::Model.raise_on_save_failure = true
 
+
 class Language
   include DataMapper::Resource
+
   property :id, Serial
-  property :name, String, :required => true
+  property :name, String
+
+  validates_presence_of :name
   validates_uniqueness_of :name
+
   has n, :words
 
   def self.add(language)
@@ -17,11 +22,16 @@ class Language
   end
 end
 
+
 class Word
   include DataMapper::Resource
+
   property :id, Serial
-  property :name, String, :required => true
+  property :name, String
+
+  validates_presence_of :name
   validates_uniqueness_of :name, :scope => :language
+
   belongs_to :language
   has n, :translation_pairs, :child_key => [ :first_id ]
   has n, :translations, self, :through => :translation_pairs, :via => :second
@@ -31,8 +41,10 @@ class Word
   end
 end
 
+
 class TranslationPair
   include DataMapper::Resource
+
   belongs_to :first, 'Word', :key => true
   belongs_to :second, 'Word', :key => true
 
@@ -43,6 +55,7 @@ class TranslationPair
     TranslationPair.create(first: b, second: a)
   end
 end
+
 
 DataMapper.finalize
 DataMapper.auto_upgrade!

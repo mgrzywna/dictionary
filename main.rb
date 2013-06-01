@@ -11,8 +11,7 @@ Slim::Engine.set_default_options pretty: true
 
 $navigation = [
   ['/', 'HOME'],
-  ['/add', 'ADD TRANSLATION'],
-  ['/editlang', 'EDIT LANGUAGES']
+  ['/add-word', 'ADD TRANSLATION']
 ]
 
 get('/css/style.css') { scss :'styles/style' }
@@ -27,26 +26,28 @@ get '/search' do
   slim :search
 end
 
-get '/add' do
+get '/word/:word_id' do
+  @word = Word.get(params[:word_id])
+  slim :word
+end
+
+get '/add-word' do
   @languages = Language.all
   component :add_word_form, :action => '/add', :label => 'Add word'
 end
 
-post '/add' do
-  redirect '/edit'
+post '/add-word' do
+  redirect '/edit-word'
 end
 
-get '/edit' do
+get '/edit-word' do
 end
 
-post '/edit' do
-  redirect '/edit'
+post '/edit-word' do
+  redirect '/edit-word'
 end
 
 get '/edit-languages' do
-end
-
-get '/word/:word' do
 end
 
 helpers do

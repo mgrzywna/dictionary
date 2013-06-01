@@ -9,16 +9,15 @@ require './model'
 
 Slim::Engine.set_default_options pretty: true
 
-$navigation = {
-  :'' => 'HOME',
-  :add => 'ADD TRANSLATION',
-  :editlang => 'EDIT LANGUAGES'
-}
+$navigation = [
+  ['/', 'HOME'],
+  ['/add', 'ADD TRANSLATION'],
+  ['/editlang', 'EDIT LANGUAGES']
+]
 
 get('/css/style.css') { scss :'styles/style' }
 
 get '/' do
-  @active_page = :''
   slim :search_form
 end
 
@@ -29,7 +28,6 @@ end
 
 get '/add' do
   @languages = Language.all
-  @active_page = :add
   slim :add
 end
 
@@ -46,7 +44,6 @@ post '/edit' do
 end
 
 get '/editlang' do
-  @active_page = :editlang
   slim :editlang
 end
 

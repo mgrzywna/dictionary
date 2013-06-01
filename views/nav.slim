@@ -4,8 +4,6 @@ nav.navbar.navbar-fixed-top
       a.brand href="/"
         img src="img/awesome.png"
       ul.nav.pull-right
-        - $navigation.each do |key, label|
-          - if @active_page == key
-            li.active: a href="/#{key}" == label
-          - else
-            li: a href="/#{key}" == label
+        - $navigation.each do |array|
+          li class=('active' if array[0] == request.path)
+            a href="#{array[0]}" == array[1]

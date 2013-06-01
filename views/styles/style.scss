@@ -1,7 +1,13 @@
 
+/* VARIABLES
+---------------------------------------------------- */
+
 $radius: 4px;
 $logo-height: 48px;
 $font-color: #2c3e50;
+
+/* GENERAL
+---------------------------------------------------- */
 
 body {
     padding-top: 120px;
@@ -9,22 +15,37 @@ body {
     background-color: #ecf0f1;
 }
 
+/* NAVBAR
+---------------------------------------------------- */
+
 .navbar .nav > li > a {
     line-height: $logo-height;
 }
 
-#search-box input[type=text] {
+/* FORMS
+---------------------------------------------------- */
+
+input[type=text] {
     border-radius: $radius;
     color: $font-color;
     font-size: 1.1em;
-    width: 600px;
     margin: 0 4px 0 0;
 }
 
-#search-box button {
+.btn { border-radius: $radius; }
+
+select {
     border-radius: $radius;
-    width: 150px;
+    color: $font-color;
 }
+
+#search-box input[type=text] { width: 600px; }
+#search-box button { width: 150px; }
+
+#add-word input[type=text] { width: 400px; }
+
+/* WORD LIST
+---------------------------------------------------- */
 
 .word {
     margin-top: 40px;

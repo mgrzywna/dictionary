@@ -18,7 +18,7 @@ $navigation = [
 get('/css/style.css') { scss :'styles/style' }
 
 get '/' do
-  slim :search_form
+  component :search_form
 end
 
 get '/search' do
@@ -29,7 +29,7 @@ end
 
 get '/add' do
   @languages = Language.all
-  slim :add
+  component :add_word_form, :action => '/add', :btn_label => 'Add word'
 end
 
 post '/add' do
@@ -37,7 +37,6 @@ post '/add' do
 end
 
 get '/edit' do
-  slim :edit
 end
 
 post '/edit' do
@@ -45,14 +44,13 @@ post '/edit' do
 end
 
 get '/editlang' do
-  slim :editlang
 end
 
 get '/word/:word' do
 end
 
 helpers do
-  def component(name, locals)
+  def component(name, locals=nil)
       slim "components/".concat(name.to_s).to_sym, :locals => locals
   end
 end

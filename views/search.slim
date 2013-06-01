@@ -1,15 +1,8 @@
 
-== slim :search_form
+== component :search_form
 
 - for word in @words do
-  .word
-    = word.name
-    span.lang = word.language.name.upcase
-  ol.translation
-    - for translation in word.translations do
-      li
-        = translation.name
-        span.lang = translation.language.name.upcase
+  == component :translations_list, :word => word
 
 - if @words.empty?
   | not found

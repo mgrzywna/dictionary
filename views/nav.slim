@@ -4,6 +4,8 @@ nav.navbar.navbar-fixed-top
       a.brand href="/"
         img src="img/awesome.png"
       ul.nav.pull-right
-        li: a href="/" LOREM IPSUM
-        li: a href="/" DOLOR SIT
-        li.active: a href="/" AMET
+        - $navigation.each do |key, label|
+          - if @active_page == key
+            li.active: a href="/#{key}" #{label}
+          - else
+            li: a href="/#{key}" #{label}

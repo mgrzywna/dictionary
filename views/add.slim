@@ -1,0 +1,7 @@
+
+form#add-word method="GET" action="/add"
+  input type="text" name="word"
+  select name="language"
+    - for language in @languages do
+      option = language.name
+  button.btn.btn-primary type="submit" Add word

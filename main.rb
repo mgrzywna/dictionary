@@ -1,3 +1,5 @@
+# -*- encoding : utf-8 -*-
+
 require 'sinatra'
 require 'sinatra/reloader' if development?
 require 'slim'
@@ -8,13 +10,15 @@ require './model'
 Slim::Engine.set_default_options pretty: true
 
 $navigation = {
-  :add => 'ADD NEW WORD',
+  :'' => 'HOME',
+  :add => 'ADD TRANSLATION',
   :editlang => 'EDIT LANGUAGES'
 }
 
 get('/css/style.css') { scss :'styles/style' }
 
 get '/' do
+  @active_page = :''
   slim :search_form
 end
 
@@ -44,4 +48,7 @@ end
 get '/editlang' do
   @active_page = :editlang
   slim :editlang
+end
+
+get '/word/:word' do
 end

@@ -6,6 +6,6 @@ nav.navbar.navbar-fixed-top
       ul.nav.pull-right
         - $navigation.each do |key, label|
           - if @active_page == key
-            li.active: a href="/#{key}" #{label}
+            li.active: a href="/#{key}" == label
           - else
-            li: a href="/#{key}" #{label}
+            li: a href="/#{key}" == label

@@ -50,6 +50,10 @@ end
 get '/edit-languages' do
 end
 
+not_found do
+  slim :not_found
+end
+
 helpers do
   def component(name, locals=nil)
       slim "components/".concat(name.to_s).to_sym, :locals => locals

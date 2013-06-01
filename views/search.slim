@@ -5,4 +5,5 @@
   == component :translations_list, :word => word
 
 - if @words.empty?
-  | not found
+  p Unfortunately we can't find word <strong>#{params[:word]}</strong>.
+  p But you can <a href="/add-word">add it</a> if you want.

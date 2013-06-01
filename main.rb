@@ -29,7 +29,7 @@ end
 
 get '/add' do
   @languages = Language.all
-  component :add_word_form, :action => '/add', :btn_label => 'Add word'
+  component :add_word_form, :action => '/add', :label => 'Add word'
 end
 
 post '/add' do
@@ -43,7 +43,7 @@ post '/edit' do
   redirect '/edit'
 end
 
-get '/editlang' do
+get '/edit-languages' do
 end
 
 get '/word/:word' do

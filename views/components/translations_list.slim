@@ -1,8 +1,8 @@
 .word
   = word.name
-  span.lang = word.language.name.upcase
+  span.lang-lbl = word.language.name.upcase
 ol.translation
   - for translation in word.translations do
     li
       = translation.name
-      span.lang = translation.language.name.upcase
+      span.lang-lbl = translation.language.name.upcase

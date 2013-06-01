@@ -30,34 +30,37 @@ input[type=text] {
     color: $font-color;
     font-size: 1.1em;
     margin: 0 4px 0 0;
+    width: 600px;
 }
-
-.btn { border-radius: $radius; }
 
 select {
     border-radius: $radius;
     color: $font-color;
 }
 
-#search-box input[type=text] { width: 600px; }
-#search-box button { width: 150px; }
+.btn { border-radius: $radius; }
 
-#add-word input[type=text] { width: 600px; }
+.search-box { margin-bottom: 40px; }
+.search-box button { width: 150px; }
 
-/* WORD LIST
+.add-word .lbl { margin: 15px 0 10px 0; }
+.add-word .lang a { margin-left: 20px; }
+.add-word .btn { margin-top: 15px; }
+
+
+/* TRANSLATIONS LIST
 ---------------------------------------------------- */
 
-.word {
-    margin-top: 40px;
-    font-size: 2.2em;
-}
+.word { font-size: 2.2em; }
 
-.word .lang {
+.lang-lbl {
     margin-left: 20px;
-    margin-right: 60px;
     font-size: 0.4em;
     font-style: italic;
 }
+
+.word .lang-lbl { font-size: 0.4em; }
+.translation .lang-lbl { font-size: 0.5em; }
 
 .translation {
     margin-top: 20px;
@@ -65,12 +68,4 @@ select {
     padding-left: 30px;
 }
 
-.translation > li {
-    padding: 3px;
-}
-
-.translation .lang {
-    margin-left: 20px;
-    font-size: 0.5em;
-    font-style: italic;
-}
+.translation > li { padding: 3px; }

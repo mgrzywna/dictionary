@@ -1,11 +1,10 @@
 
-form#add-word method="POST" action="#{action}"
-  input type="text" name="word"
-  br
-  label for="lang" Language:
-  select#lang name="language"
-    - for language in @languages do
-      option = language.name
-  a href="/" Edit languages
-  br
-  button.btn.btn-primary type="submit" = btn_label
+form.add-word method="POST" action="#{action}"
+  div: input type="text" name="word" placeholder="#{label}"
+  .lbl Language:
+  .lang
+    select name="language"
+      - for language in @languages do
+        option = language.name
+    a href="/edit-languages" Edit languages
+  div: button.btn.btn-primary type="submit" Save

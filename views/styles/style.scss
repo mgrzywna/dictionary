@@ -43,15 +43,22 @@ select {
 .search-box { margin-bottom: 40px; }
 .search-box button { width: 150px; }
 
-.add-word .lbl { margin: 15px 0 10px 0; }
+.add-word .lbl { margin: 6px 0 3px 0; }
 .add-word .lang a { margin-left: 20px; }
-.add-word .btn { margin-top: 15px; }
+.add-word .btn { margin-top: 6px; }
 
 
 /* TRANSLATIONS LIST
 ---------------------------------------------------- */
 
-.word { font-size: 2.2em; }
+a.word {
+    color: $font-color;
+    text-decoration: none;
+}
+
+a.word:hover { border-bottom: 1px dotted; }
+
+.main-word { font-size: 2.2em; }
 
 .lang-lbl {
     margin-left: 20px;
@@ -59,7 +66,7 @@ select {
     font-style: italic;
 }
 
-.word .lang-lbl { font-size: 0.4em; }
+.main-word .lang-lbl { font-size: 0.4em; }
 .translation .lang-lbl { font-size: 0.5em; }
 
 .translation {

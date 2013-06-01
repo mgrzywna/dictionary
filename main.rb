@@ -22,7 +22,8 @@ get '/' do
 end
 
 get '/search' do
-  @words = Word.all(:name.like => "#{params[:word]}")
+  word = params[:word].split.join(' ')
+  @words = Word.all(:name.like => "#{word}")
   slim :search
 end
 

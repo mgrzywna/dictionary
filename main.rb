@@ -50,3 +50,9 @@ end
 
 get '/word/:word' do
 end
+
+helpers do
+  def component(name, locals)
+      slim "components/".concat(name.to_s).to_sym, :locals => locals
+  end
+end

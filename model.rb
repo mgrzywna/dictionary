@@ -41,6 +41,7 @@ class TranslationPair
   include DataMapper::Resource
   belongs_to :first, 'Word', :key => true
   belongs_to :second, 'Word', :key => true
+  validates_uniqueness_of :first, :scope => :second
 end
 
 DataMapper.finalize

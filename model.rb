@@ -16,10 +16,6 @@ class Language
   validates_uniqueness_of :name
 
   has n, :words
-
-  def self.add(language)
-    Language.first_or_create(name: language)
-  end
 end
 
 
@@ -35,10 +31,6 @@ class Word
   belongs_to :language
   has n, :translation_pairs, :child_key => [ :first_id ]
   has n, :translations, self, :through => :translation_pairs, :via => :second
-
-  def self.add(word, language)
-    Word.first_or_create(name: word, language: Language.add(language))
-  end
 end
 
 
@@ -47,11 +39,6 @@ class TranslationPair
 
   belongs_to :first, 'Word', :key => true
   belongs_to :second, 'Word', :key => true
-
-  def self.add(a, b)
-    TranslationPair.create(first: a, second: b)
-    TranslationPair.create(first: b, second: a)
-  end
 end
 
 

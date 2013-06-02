@@ -37,7 +37,7 @@ class Word
   has n, :translations, self, :through => :translation_pairs, :via => :second
 
   def self.add(word, language)
-    Word.create(name: word, language: Language.add(language))
+    Word.first_or_create(name: word, language: Language.add(language))
   end
 end
 

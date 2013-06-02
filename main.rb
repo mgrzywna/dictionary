@@ -33,14 +33,18 @@ end
 
 get '/add-word' do
   @languages = Language.all
-  component :add_word_form, :action => '/add', :label => 'Add word'
+  component :add_word_form, :action => '/add-word', :label => 'Add word'
 end
 
 post '/add-word' do
-  redirect '/edit-word'
+  word = Word.add(params[:word], params[:language])
+  redirect "/edit-word/#{word.id}"
 end
 
-get '/edit-word' do
+get '/edit-word/:word_id' do
+  @languages = Language.all
+  @word = Word.get(params[:word_id]) or halt(404)
+  slim :edit_word
 end
 
 post '/edit-word' do

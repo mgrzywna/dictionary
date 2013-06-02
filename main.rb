@@ -41,7 +41,9 @@ end
 
 post '/add-word' do
   language = Language.get params[:language]
-  word = Word.first_or_create :name => params[:word], :language => language
+  word = params[:word].split.join(' ')
+  if word.empty? then redirect '/add-word' end
+  word = Word.first_or_create :name => word, :language => language
   redirect "/add-translation/#{word.id}"
 end
 
@@ -59,7 +61,9 @@ end
 post '/add-translation/:word_id' do
   word = Word.get params[:word_id]
   language = Language.get params[:language]
-  translation = Word.first_or_create :name => params[:translation], :language => language
+  translation = params[:translation].split.join(' ')
+  if translation.empty? then redirect "/add-translation/#{word.id}" end
+  translation = Word.first_or_create :name => translation, :language => language
   TranslationPair.create :first => word, :second => translation
   TranslationPair.create :first => translation, :second => word
   redirect "/add-translation/#{word.id}"

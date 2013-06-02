@@ -49,8 +49,6 @@ class TranslationPair
   belongs_to :second, 'Word', :key => true
 
   def self.add(a, b)
-    a = Word.first(name: a)
-    b = Word.first(name: b)
     TranslationPair.create(first: a, second: b)
     TranslationPair.create(first: b, second: a)
   end

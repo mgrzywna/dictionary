@@ -11,7 +11,7 @@ Slim::Engine.set_default_options pretty: true
 
 $navigation = [
   ['/', 'HOME'],
-  ['/add-word', 'ADD TRANSLATION']
+  ['/add-word', 'ADD WORD']
 ]
 
 get('/css/style.css') { scss :'styles/style' }
@@ -22,7 +22,7 @@ end
 
 get '/search' do
   word = params[:word].split.join(' ')
-  @words = Word.all(:name.like => "#{word}")
+  @words = Word.all(:name.like => "%#{word}%")
   slim :search
 end
 
@@ -38,17 +38,21 @@ end
 
 post '/add-word' do
   word = Word.add(params[:word], params[:language])
-  redirect "/edit-word/#{word.id}"
+  redirect "/add-translation/#{word.id}"
 end
 
-get '/edit-word/:word_id' do
+get '/add-translation/:word_id' do
   @languages = Language.all
   @word = Word.get(params[:word_id]) or halt(404)
-  slim :edit_word
+  slim :add_translation
 end
 
-post '/edit-word' do
-  redirect '/edit-word'
+post '/add-translation/:word_id' do
+  translation = Word.add(params[:word], params[:language]) or halt(404)
+  word = Word.get(params[:word_id]) or halt(404)
+  TranslationPair.create(first: word, second: translation)
+  TranslationPair.create(first: translation, second: word)
+  redirect "/add-translation/#{word.id}"
 end
 
 get '/edit-languages' do

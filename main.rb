@@ -6,16 +6,13 @@ require 'sass'
 
 require './model'
 
-
 configure :production do
   Slim::Engine.set_default_options :pretty => false
 end
 
-
 configure :test do
   Slim::Engine.set_default_options :pretty => true
 end
-
 
 configure :development do
   require 'sinatra/reloader'

@@ -16,3 +16,7 @@ Install sqlite3
 Run:
 
     ruby main.rb
+
+Test:
+
+    rspec spec

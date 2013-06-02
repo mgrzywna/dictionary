@@ -48,7 +48,6 @@ select {
 .search-box button { width: 150px; }
 
 .add-word .lbl { margin: 6px 0 3px 0; }
-.add-word .lang a { margin-left: 20px; }
 .add-word .btn { margin-top: 6px; }
 
 
@@ -81,3 +80,14 @@ a.word:hover { border-bottom: 1px dotted; }
 }
 
 .translation > li { padding: 3px; }
+
+/* LANGUAGES LIST
+---------------------------------------------------- */
+
+.languages {
+    margin-top: 20px;
+    margin-bottom: 40px;
+    font-size: 1.3em;
+}
+
+.languages > li { padding: 3px; }

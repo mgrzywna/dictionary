@@ -1,0 +1,8 @@
+
+ul.languages
+  - for language in @languages do
+    li = language.name
+
+form.add-word method="POST" action="/add-language"
+  div: input type="text" name="language" placeholder="Add language"
+  div: button.btn.btn-primary type="submit" Save

@@ -24,7 +24,9 @@ end
 
 get '/search' do
   word = params[:word].split.join(' ')
-  @words = Word.all(:name.like => "%#{word}%")
+  if word.empty? then redirect '/' end
+  words = Word.all(:name.like => "%#{word}%", :limit => 30)
+  @words = words.select { |word| word.translations.count > 0 }
   slim :search
 end
 

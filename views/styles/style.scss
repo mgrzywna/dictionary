@@ -73,6 +73,20 @@ a.word:hover { border-bottom: 1px dotted; }
 }
 
 .main-word .lang-lbl { font-size: 0.4em; }
+
+.main-word a.edit {
+    font-size: 0.5em;
+    margin-left: 100px;
+    color: $font-color;
+    opacity: 0.6;
+}
+
+.main-word a.edit:hover {
+    opacity: 1;
+    text-decoration: none;
+    border-bottom: 1px dotted;
+}
+
 .translation .lang-lbl { font-size: 0.5em; }
 
 .translation {

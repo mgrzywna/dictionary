@@ -11,6 +11,8 @@ Used Gems:
 - dm-sqlite-adapter
 
 Install sqlite3
+(http://datamapper.org/getting-started.html)
 
 Run:
+
     ruby main.rb

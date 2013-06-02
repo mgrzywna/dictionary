@@ -65,12 +65,10 @@ post '/add-translation/:word_id' do
   redirect "/add-translation/#{word.id}"
 end
 
-get '/add-language' do
-  @languages = Language.all
-  slim :edit_languages
-end
-
 post '/add-language' do
-  Language.first_or_create params[:language]
-  redirect '/add-languages'
+  language = params[:language].split.join(' ')
+  unless language.empty?
+    Language.first_or_create :name => params[:language]
+  end
+  redirect "#{params[:redirect]}"
 end

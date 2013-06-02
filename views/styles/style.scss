@@ -1,18 +1,19 @@
 
-/* VARIABLES
----------------------------------------------------- */
-
 $radius: 4px;
 $logo-height: 48px;
 $font-color: #2c3e50;
+
+@mixin background {
+    background-color: #ecf0f1;
+};
 
 /* GENERAL
 ---------------------------------------------------- */
 
 body {
+    @include background;
     padding-top: 120px;
     padding-bottom: 80px;
-    background-color: #ecf0f1;
 }
 
 p {
@@ -34,7 +35,7 @@ input[type=text] {
     color: $font-color;
     font-size: 1.1em;
     margin: 0 4px 0 0;
-    width: 600px;
+    width: 400px;
 }
 
 select {
@@ -46,8 +47,10 @@ select {
 
 .search-box { margin-bottom: 40px; }
 .search-box button { width: 150px; }
+.search-box input[type=text] { width: 600px; }
 
 .add-word .lbl { margin: 6px 0 3px 0; }
+.add-word .lang a { margin-left: 20px; }
 .add-word .btn { margin-top: 6px; }
 
 
@@ -91,3 +94,20 @@ a.word:hover { border-bottom: 1px dotted; }
 }
 
 .languages > li { padding: 3px; }
+
+/* MODAL
+---------------------------------------------------- */
+
+.modal {
+    @include background;
+}
+
+.modal form {
+    margin: 0;
+    padding: 0;
+}
+
+.modal input[type=text] {
+    width: 514px;
+    margin: 0 !important
+}

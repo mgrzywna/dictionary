@@ -5,4 +5,14 @@ form.add-word method="POST" action="#{@form[:action]}"
     select name="language"
       - for language in @languages do
         option value="#{language.id}" = language.name
+    a href="#add-language" role="button" data-toggle="modal" Add language
   div: button.btn.btn-primary type="submit" Save
+
+#add-language.modal.hide.fade tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
+  form method="POST" action="/add-language"
+    .modal-body
+      input type="text" name="language" placeholder="Add language name"
+      input type="hidden" name="redirect" value="#{request.path}"
+    .modal-footer
+      a.btn data-dismiss="modal" aria-hidden="true" Close
+      button.btn.btn-primary type="submit" Save

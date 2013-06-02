@@ -4,6 +4,6 @@ nav.navbar.navbar-fixed-top
       a.brand href="/"
         img src="/img/awesome.png"
       ul.nav.pull-right
-        - [['/', 'HOME'], ['/add-word', 'ADD WORD']].each do |array|
+        - [['/', 'HOME'], ['/add-word', 'ADD TRANSLATION']].each do |array|
           li class=('active' if array[0] == request.path)
             a href="#{array[0]}" == array[1]

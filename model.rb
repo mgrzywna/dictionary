@@ -2,7 +2,7 @@
 
 require 'data_mapper'
 
-DataMapper.setup(:default, "sqlite3://#{Dir.pwd}/development.db")
+DataMapper.setup(:default, "sqlite3://#{Dir.pwd}/model.db")
 DataMapper::Model.raise_on_save_failure = true
 
 

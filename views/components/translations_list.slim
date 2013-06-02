@@ -1,8 +1,8 @@
 .main-word
-  = word.name
-  span.lang-lbl = word.language.name.upcase
+  = @word.name
+  span.lang-lbl = @word.language.name.upcase
 ol.translation
-  - for translation in word.translations do
+  - for translation in @word.translations do
     li
       a.word href="/word/#{translation.id}" = translation.name
       span.lang-lbl = translation.language.name.upcase

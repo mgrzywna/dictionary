@@ -1,9 +1,8 @@
-
-form.add-word method="POST" action="#{action}"
-  div: input type="text" name="word" placeholder="#{label}"
+form.add-word method="POST" action="#{@form[:action]}"
+  div: input type="text" name="#{@form[:input_name]}" placeholder="#{@form[:label]}"
   .lbl Language:
   .lang
     select name="language"
       - for language in @languages do
-        option = language.name
+        option value="#{language.id}" = language.name
   div: button.btn.btn-primary type="submit" Save

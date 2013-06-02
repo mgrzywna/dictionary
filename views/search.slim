@@ -1,8 +1,7 @@
+== slim :'components/search_form'
 
-== component :search_form
-
-- for word in @words do
-  == component :translations_list, :word => word
+- for @word in @words do
+  == slim :'components/translations_list'
 
 - if @words.empty?
   p Unfortunately we can't find word <strong>#{params[:word]}</strong>.

@@ -9,23 +9,17 @@ require './model'
 
 Slim::Engine.set_default_options pretty: true
 
-$navigation = [
-  ['/', 'HOME'],
-  ['/add-word', 'ADD WORD'],
-  ['/edit-languages', 'EDIT LANGUAGES']
-]
-
 get('/css/style.css') { scss :'styles/style' }
 not_found { slim :not_found }
 
 get '/' do
-  component :search_form
+  slim :'components/search_form'
 end
 
 get '/search' do
   word = params[:word].split.join(' ')
   if word.empty? then redirect '/' end
-  words = Word.all(:name.like => "%#{word}%", :limit => 30)
+  words = Word.all :name.like => "%#{word}%", :limit => 30
   @words = words.select { |word| word.translations.count > 0 }
   slim :search
 end
@@ -37,40 +31,46 @@ end
 
 get '/add-word' do
   @languages = Language.all
-  component :add_word_form, :action => '/add-word', :label => 'Add word'
+  @form = {
+    :action => '/add-word',
+    :label => 'Add word',
+    :input_name => 'word'
+  }
+  slim :'components/add_word_form'
 end
 
 post '/add-word' do
-  word = Word.add(params[:word], params[:language])
+  language = Language.get params[:language]
+  word = Word.first_or_create :name => params[:word], :language => language
   redirect "/add-translation/#{word.id}"
 end
 
 get '/add-translation/:word_id' do
-  @languages = Language.all
   @word = Word.get(params[:word_id]) or halt(404)
+  @languages = Language.all
+  @form = {
+    :action => "/add-translation/#{@word.id}",
+    :label => 'Add translation',
+    :input_name => 'translation'
+  }
   slim :add_translation
 end
 
 post '/add-translation/:word_id' do
-  translation = Word.add(params[:word], params[:language]) or halt(404)
-  word = Word.get(params[:word_id]) or halt(404)
-  TranslationPair.create(first: word, second: translation)
-  TranslationPair.create(first: translation, second: word)
+  word = Word.get params[:word_id]
+  language = Language.get params[:language]
+  translation = Word.first_or_create :name => params[:translation], :language => language
+  TranslationPair.create :first => word, :second => translation
+  TranslationPair.create :first => translation, :second => word
   redirect "/add-translation/#{word.id}"
 end
 
-get '/edit-languages' do
+get '/add-language' do
   @languages = Language.all
   slim :edit_languages
 end
 
 post '/add-language' do
-  Language.add(params[:language])
-  redirect '/edit-languages'
-end
-
-helpers do
-  def component(name, locals=nil)
-      slim "components/".concat(name.to_s).to_sym, :locals => locals
-  end
+  Language.first_or_create params[:language]
+  redirect '/add-languages'
 end

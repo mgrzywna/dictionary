@@ -36,8 +36,7 @@ get '/search' do
     redirect '/'
   end
 
-  words = Word.all :name.like => "%#{word}%", :limit => 30
-  @words = words.select { |word| word.translations.count > 0 }
+  @words = Word.all :name.like => "%#{word}%", :limit => 30
   slim :search
 end
 
@@ -98,8 +97,8 @@ post '/add-translation/:word_id' do
   end
 
   translation = Word.first_or_create :name => translation, :language => language
-  TranslationPair.create :first => word, :second => translation
-  TranslationPair.create :first => translation, :second => word
+  TranslationPair.first_or_create :first => word, :second => translation
+  TranslationPair.first_or_create :first => translation, :second => word
   redirect "/add-translation/#{word.id}"
 end
 

@@ -97,8 +97,7 @@ post '/add-translation/:word_id' do
   end
 
   translation = Word.first_or_create :name => translation, :language => language
-  TranslationPair.first_or_create :first => word, :second => translation
-  TranslationPair.first_or_create :first => translation, :second => word
+  word.add_translation(translation)
   redirect "/add-translation/#{word.id}"
 end
 

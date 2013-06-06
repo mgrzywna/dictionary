@@ -14,6 +14,8 @@ describe "Language" do
   it "shouldn't allow empty name" do
     Language.new(name: "").should_not be_valid
   end
+
+  it "should return list of words in particular language"
 end
 
 describe "Word" do
@@ -46,6 +48,18 @@ describe "Word" do
   it "should allow the same word within different languages" do
     Word.create(name: "taxi", language: @english).should be_valid
     Word.create(name: "taxi", language: @german).should be_valid
+  end
+
+  describe "#translations" do
+    it "should return word's translations sorted by language"
+  end
+
+  describe "#add_translation" do
+    it "should add new translation of the word"
+  end
+
+  describe "#remove_translation" do
+    it "should remove particular translation of the word"
   end
 end
 
@@ -84,7 +98,10 @@ describe "TranslationPair" do
     TranslationPair.new(first: a, second: b).should_not be_valid
   end
 
-  describe "add method" do
+  describe "::add" do
+    it "should create new translation"
+    it "should return existing translation when it was previously added"
+
     it "should swap values when necessary" do
       TranslationPair.add(@foo, @bar).should be_valid
       TranslationPair.add(@bar, @foo).should be_valid
@@ -93,5 +110,10 @@ describe "TranslationPair" do
     it "should be symmetrical" do
       TranslationPair.add(@foo, @bar).should == TranslationPair.add(@bar, @foo)
     end
+  end
+
+  describe "::remove" do
+    it "should remove translation"
+    it "should be symmetrical"
   end
 end

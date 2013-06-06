@@ -16,7 +16,7 @@ Install sqlite3
 
 Run:
 
-    ruby main.rb
+    ruby app.rb
 
 Test:
 

@@ -3,7 +3,7 @@ require 'database_cleaner'
 
 ENV['RACK_ENV'] = 'test'
 
-require_relative '../main'
+require_relative '../app'
 require_relative '../model'
 
 set :run, false

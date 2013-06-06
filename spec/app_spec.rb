@@ -52,7 +52,7 @@ describe "Dictionary" do
     it "should remove extra whitespace when searching" do
       en = Word.first_or_create(name: "ball pen", language: @english)
       pl = Word.first_or_create(name: "długopis", language: @polish)
-      TranslationPair.create(first: pl, second: en)
+      en.add_translation(pl)
 
       get "/search", word: "  ball  pen  "
       last_response.should be_ok
@@ -107,5 +107,4 @@ describe "Dictionary" do
       last_response.should be_ok
     end
   end
-
 end

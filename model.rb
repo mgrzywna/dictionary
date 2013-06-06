@@ -1,21 +1,6 @@
 # -*- encoding : utf-8 -*-
 
-require 'data_mapper'
-
-configure :production do
-  DataMapper.setup(:default, "sqlite3://#{Dir.pwd}/production.db")
-  DataMapper::Model.raise_on_save_failure = false
-end
-
-configure :test do
-  DataMapper.setup(:default, "sqlite::memory:")
-  DataMapper::Model.raise_on_save_failure = true
-end
-
-configure :development do
-  DataMapper.setup(:default, "sqlite3://#{Dir.pwd}/development.db")
-  DataMapper::Model.raise_on_save_failure = true
-end
+require './environment'
 
 class Language
   include DataMapper::Resource
@@ -82,4 +67,3 @@ class TranslationPair
 end
 
 DataMapper.finalize
-DataMapper.auto_upgrade!

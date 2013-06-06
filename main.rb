@@ -1,24 +1,11 @@
 # -*- encoding : utf-8 -*-
 
 require 'sinatra'
-require 'slim'
-require 'sass'
 
+require './environment'
 require './model'
 
-configure :production do
-  Slim::Engine.set_default_options :pretty => false
-end
-
-configure :test do
-  Slim::Engine.set_default_options :pretty => true
-end
-
-configure :development do
-  require 'sinatra/reloader'
-  Slim::Engine.set_default_options :pretty => true
-end
-
+DataMapper.auto_upgrade!
 
 get('/css/style.css') { scss :'styles/style' }
 not_found { slim :not_found }

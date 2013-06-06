@@ -15,13 +15,29 @@ describe "Language" do
     Language.new(name: "").should_not be_valid
   end
 
-  it "should return list of words in particular language"
+  it "should return list of words in particular language" do
+    language = Language.create(name: "foobar")
+    words = %w(lorem ipsum dolor sit amet)
+
+    words.each_with_index { |word, i| Word.create(id: i + 1, name: word, language: language) }
+
+    language.words.count.should == words.count
+    language.words.each { |word| word.name.should == words[word.id - 1] }
+  end
+
+  it "should return list of words in particular language (ver. 2)" do
+    language = Language.create(name: "foobar")
+    words = %w(lorem ipsum dolor sit amet)
+
+    words.each { |word| Word.create(name: word, language: language) }
+    words.should == language.words.map { |word| word.name }
+  end
 end
 
 describe "Word" do
   before :each do
     @english = Language.first_or_create(name: "English")
-    @german = Language.first_or_create(name: "German")
+    @polish = Language.first_or_create(name: "Polish")
   end
 
   it "should require a name and language" do
@@ -47,15 +63,37 @@ describe "Word" do
 
   it "should allow the same word within different languages" do
     Word.create(name: "taxi", language: @english).should be_valid
-    Word.create(name: "taxi", language: @german).should be_valid
+    Word.create(name: "taxi", language: @polish).should be_valid
   end
 
   describe "#translations" do
-    it "should return word's translations sorted by language"
+    it "should return word's translations sorted by language" do
+      foo = Language.create(name: "foo")
+      bar = Language.create(name: "bar")
+      qux = Language.create(name: "qux")
+
+      word = Word.create(name: "word", language: foo)
+
+      translations = [
+        Word.create(name: "lorem", language: bar),
+        Word.create(name: "ipsum", language: qux),
+        Word.create(name: "dolor", language: bar)
+      ]
+
+      translations.each { |translation| word.add_translation(translation) }
+      translations.sort! { |x, y| x.language <=> y.language }
+      word.translations.should == translations
+    end
   end
 
   describe "#add_translation" do
-    it "should add new translation of the word"
+    it "should add new translation of the word" do
+      water = Word.create(name: "water", language: @english)
+      woda = Word.create(name: "woda", language: @polish)
+      water.add_translation(woda)
+      water.translations.count.should == 1
+      water.translations[0].should == woda
+    end
   end
 
   describe "#remove_translation" do
@@ -99,8 +137,18 @@ describe "TranslationPair" do
   end
 
   describe "::add" do
-    it "should create new translation"
-    it "should return existing translation when it was previously added"
+    it "should create new translation" do
+      TranslationPair.all.count.should == 0
+      tp = TranslationPair.add(@foo, @bar)
+      TranslationPair.all.count.should == 1
+      TranslationPair.all[0].should == tp
+    end
+
+    it "should return existing translation when it was previously added" do
+      a = TranslationPair.create(first: @foo, second: @bar)
+      b = TranslationPair.add(@foo, @bar)
+      a.should == b
+    end
 
     it "should swap values when necessary" do
       TranslationPair.add(@foo, @bar).should be_valid

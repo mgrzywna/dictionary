@@ -24,7 +24,7 @@ class Word
   def translations
     a = TranslationPair.all(first: self).map { |pair| pair.second }
     b = TranslationPair.all(second: self).map { |pair| pair.first }
-    a | b
+    (a | b).sort { |x, y| x.language <=> y.language }
   end
 
   def add_translation(word)

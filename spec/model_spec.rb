@@ -97,7 +97,23 @@ describe "Word" do
   end
 
   describe "#remove_translation" do
-    it "should remove particular translation of the word"
+    it "should remove particular translation of the word" do
+      water = Word.create(name: "water", language: @english)
+      woda = Word.create(name: "woda", language: @polish)
+      water.add_translation(woda)
+      water.translations.count.should == 1
+      water.remove_translation(woda)
+      water.translations.count.should == 0
+    end
+
+    it "should be symmetrical" do
+      water = Word.create(name: "water", language: @english)
+      woda = Word.create(name: "woda", language: @polish)
+      water.add_translation(woda)
+      water.translations.count.should == 1
+      woda.remove_translation(water)
+      water.translations.count.should == 0
+    end
   end
 end
 
@@ -161,7 +177,18 @@ describe "TranslationPair" do
   end
 
   describe "::remove" do
-    it "should remove translation"
-    it "should be symmetrical"
+    it "should remove translation" do
+      TranslationPair.add(@foo, @bar)
+      TranslationPair.all.count.should == 1
+      TranslationPair.remove(@foo, @bar)
+      TranslationPair.all.count.should == 0
+    end
+
+    it "should be symmetrical" do
+      TranslationPair.add(@foo, @bar)
+      TranslationPair.all.count.should == 1
+      TranslationPair.remove(@bar, @foo)
+      TranslationPair.all.count.should == 0
+    end
   end
 end

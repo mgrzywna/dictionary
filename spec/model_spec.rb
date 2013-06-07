@@ -180,14 +180,14 @@ describe "TranslationPair" do
     it "should remove translation" do
       TranslationPair.add(@foo, @bar)
       TranslationPair.all.count.should == 1
-      TranslationPair.remove(@foo, @bar)
+      TranslationPair.remove(@foo, @bar).should == true
       TranslationPair.all.count.should == 0
     end
 
     it "should be symmetrical" do
       TranslationPair.add(@foo, @bar)
       TranslationPair.all.count.should == 1
-      TranslationPair.remove(@bar, @foo)
+      TranslationPair.remove(@bar, @foo).should == true
       TranslationPair.all.count.should == 0
     end
   end

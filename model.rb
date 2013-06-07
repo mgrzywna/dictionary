@@ -30,6 +30,10 @@ class Word
   def add_translation(word)
     TranslationPair.add(self, word)
   end
+
+  def remove_translation(word)
+    TranslationPair.remove(self, word)
+  end
 end
 
 class TranslationPair
@@ -63,6 +67,11 @@ class TranslationPair
   def self.add(a, b)
     if a.id > b.id then a, b = b, a end
     TranslationPair.first_or_create(first: a, second: b)
+  end
+
+  def self.remove(a, b)
+    if a.id > b.id then a, b = b, a end
+    tp = TranslationPair.first(first: a, second: b) and tp.destroy
   end
 end
 

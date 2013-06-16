@@ -66,7 +66,7 @@ get '/add-translation/:word_id' do
 
   @form = {
     :action => "/add-translation/#{@word.id}",
-    :label => 'Add translation',
+    :label => "Add translation of #{@word.name}",
     :input_name => 'translation'
   }
 

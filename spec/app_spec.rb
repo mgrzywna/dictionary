@@ -62,8 +62,8 @@ describe "Dictionary" do
 
   describe "get /word/:word_id" do
     it "should show word" do
-      foo = en = Word.first_or_create(name: "foo", language: @english)
-      bar = en = Word.first_or_create(name: "bar", language: @english)
+      foo = Word.first_or_create(name: "foo", language: @english)
+      bar = Word.first_or_create(name: "bar", language: @english)
 
       get "/word/#{foo.id}"
       last_response.should be_ok
@@ -105,6 +105,27 @@ describe "Dictionary" do
       follow_redirect!
       last_request.url.should == "http://example.org/add-word"
       last_response.should be_ok
+    end
+  end
+
+  describe "get /add-translation/:word_id" do
+    it "should show word and form" do
+      word = Word.first_or_create(name: "foobar", language: @english)
+      get "/add-translation/#{word.id}"
+      last_response.should be_ok
+      last_response.should match /foobar/
+      last_response.should match /<form/
+    end
+  end
+
+  describe "post /add-translation/:word_id" do
+    it "should add a new translation" do
+      word = Word.first_or_create(name: "guitar", language: @english)
+      post "/add-translation/#{word.id}", language: @polish.id, translation: "gitara"
+
+      translation = Word.first(name: "gitara")
+      translation.should_not be_nil
+      word.translations.first.should == translation
     end
   end
 end

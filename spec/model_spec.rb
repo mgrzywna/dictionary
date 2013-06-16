@@ -15,7 +15,7 @@ describe "Language" do
     Language.new(name: "").should_not be_valid
   end
 
-  it "should return list of words in particular language" do
+  it "should return list of words in particular language (ver. 1)" do
     language = Language.create(name: "foobar")
     words = %w(lorem ipsum dolor sit amet)
 
@@ -31,6 +31,16 @@ describe "Language" do
 
     words.each { |word| Word.create(name: word, language: language) }
     words.should == language.words.map { |word| word.name }
+  end
+
+  it "should return list of words in particular language (ver. 3)" do
+    language = Language.create(name: "foobar")
+
+    words = %w(lorem ipsum dolor sit amet).map do |word|
+      Word.create(name: word, language: language)
+    end
+
+    language.words.should == words
   end
 end
 

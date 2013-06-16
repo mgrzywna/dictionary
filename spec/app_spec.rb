@@ -33,6 +33,13 @@ describe "Dictionary" do
       last_request.url.should == "http://example.org/"
     end
 
+    it "should redirect to / when given no word" do
+      get "/search"
+      last_response.should be_redirect
+      follow_redirect!
+      last_request.url.should == "http://example.org/"
+    end
+
     it "should show message when it can't find given word" do
       get "/search", word: "lorem ipsum"
       last_response.should be_ok
@@ -63,12 +70,11 @@ describe "Dictionary" do
   describe "get /word/:word_id" do
     it "should show word" do
       foo = Word.first_or_create(name: "foo", language: @english)
-      bar = Word.first_or_create(name: "bar", language: @english)
-
       get "/word/#{foo.id}"
       last_response.should be_ok
       last_response.body.should match /foo/
 
+      bar = Word.first_or_create(name: "bar", language: @english)
       get "/word/#{bar.id}"
       last_response.should be_ok
       last_response.body.should match /bar/
@@ -93,7 +99,6 @@ describe "Dictionary" do
       post "/add-word", language: @english.id, word: "guitar"
       word = Word.first
       word.name.should == "guitar"
-
       follow_redirect!
       last_request.url.should == "http://example.org/add-translation/#{word.id}"
       last_response.should be_ok
@@ -101,7 +106,20 @@ describe "Dictionary" do
 
     it "should redirect to /add-word when given empty word" do
       post "/add-word", language: @english.id, word: ""
+      follow_redirect!
+      last_request.url.should == "http://example.org/add-word"
+      last_response.should be_ok
+    end
 
+    it "should redirect to /add-word when given no word" do
+      post "/add-word", language: @english.id
+      follow_redirect!
+      last_request.url.should == "http://example.org/add-word"
+      last_response.should be_ok
+    end
+
+    it "should redirect to /add-word when given no language" do
+      post "/add-word", word: "something"
       follow_redirect!
       last_request.url.should == "http://example.org/add-word"
       last_response.should be_ok
@@ -122,10 +140,24 @@ describe "Dictionary" do
     it "should add a new translation" do
       word = Word.first_or_create(name: "guitar", language: @english)
       post "/add-translation/#{word.id}", language: @polish.id, translation: "gitara"
-
       translation = Word.first(name: "gitara")
       translation.should_not be_nil
       word.translations.first.should == translation
+    end
+  end
+
+  describe "post /add-language" do
+    it "should redirect to address given in parameter" do
+      post "/add-language", language: @english.id, redirect: "/foobar"
+      follow_redirect!
+      last_request.url.should == "http://example.org/foobar"
+    end
+
+    it "should redirect to / when given no redirect parameter" do
+      post "/add-language", language: @english.id
+      follow_redirect!
+      last_request.url.should == "http://example.org/"
+      last_response.should be_ok
     end
   end
 end
